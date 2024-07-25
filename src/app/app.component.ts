@@ -3,12 +3,14 @@ import { Router, RouterOutlet } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ButtonModule, NavbarComponent],
+  imports: [RouterOutlet, ButtonModule, NavbarComponent, ToastModule],
   template: `
+    <p-toast />
     @if(showNavbar){
     <app-navbar></app-navbar>
     }

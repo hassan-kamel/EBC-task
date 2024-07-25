@@ -108,8 +108,9 @@
         <input
           type="text"
           pInputText
-          placeholder="Search"
+          placeholder="press Enter to search"
           class="w-8rem sm:w-auto"
+          (change)="search($event)"
         />
         <p-avatar
           image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"

@@ -1,20 +1,34 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { RippleModule } from 'primeng/ripple';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-    imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule]
-,  templateUrl: './navbar.component.html',
+  imports: [
+    MenubarModule,
+    BadgeModule,
+    AvatarModule,
+    InputTextModule,
+    RippleModule,
+    CommonModule,
+  ],
+  templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit {
+  constructor(
+    private _router: Router,
+    private _productsService: ProductsService
+  ) {}
+
   items: MenuItem[] | undefined;
 
   ngOnInit() {
@@ -73,5 +87,9 @@ export class NavbarComponent implements OnInit {
         badge: '3',
       },
     ];
+  }
+
+  search(event: any) {
+    this._productsService.updateSearchKeyword(event.target.value);
   }
 }

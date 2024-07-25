@@ -1,0 +1,40 @@
+<div
+  class="p-4 border-1 surface-border surface-card border-round flex flex-column"
+>
+  <div class="surface-50 flex justify-content-center border-round p-3">
+    <div class="relative mx-auto">
+      <img
+        class="border-round w-full"
+        [src]="product.imageCover"
+        [alt]="product.title"
+        style="height: 200px; object-fit: contain"
+      />
+      <p-tag
+        [value]="getSeverity(product).text"
+        [severity]="getSeverity(product).severity"
+      ></p-tag>
+    </div>
+  </div>
+  <div class="pt-4">
+    <div class="flex flex-row justify-content-between align-items-start gap-2">
+      <div>
+        <span class="font-medium text-secondary text-sm">{{
+          product.category.name
+        }}</span>
+        <div class="text-lg font-medium text-900 mt-1">{{ product.title }}</div>
+      </div>
+    </div>
+    <div class="flex flex-column gap-4 mt-4">
+      <span class="text-2xl font-semibold">{{ "$" + product.price }}</span>
+      <div class="flex">
+        <p-button
+          icon="pi pi-heart"
+          [outlined]="!isFavorite"
+          [class]="{ 'p-button-danger': isFavorite }"
+          label="Favorite"
+          (click)="onToggleFavorite()"
+        ></p-button>
+      </div>
+    </div>
+  </div>
+</div>

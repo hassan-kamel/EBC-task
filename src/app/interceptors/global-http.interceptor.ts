@@ -13,14 +13,14 @@ export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
       if (error.error instanceof ErrorEvent) {
         errorMsg = `Error: ${error.error.message}`;
       } else {
-        errorMsg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+        errorMsg = `Message: ${error.error.message}`;
       }
       messageService.add({
         severity: 'error',
-        summary: 'Error',
+        summary: error.error.status,
         detail: errorMsg,
       });
-      return throwError(errorMsg);
+      return throwError(() => new Error(errorMsg));
     })
   );
 };
