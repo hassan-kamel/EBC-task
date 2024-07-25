@@ -10,14 +10,17 @@ export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       let errorMsg = '';
-      if (error.error instanceof ErrorEvent) {
-        errorMsg = `Error: ${error.error.message}`;
+      if (error.error?.errors?.length > 0) {
+        error.error?.errors?.forEach((element: any) => {
+          errorMsg += `Message: ${element?.msg}\n`;
+        });
       } else {
-        errorMsg = `Message: ${error.error.message}`;
+        errorMsg = `Error: ${error.error.message}`;
       }
+
       messageService.add({
         severity: 'error',
-        summary: error.error.status,
+        summary: error.error.status || '',
         detail: errorMsg,
       });
       return throwError(() => new Error(errorMsg));

@@ -8,6 +8,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { RippleModule } from 'primeng/ripple';
 import { ProductsService } from '../../services/products.service';
+import { AuthService } from '../../services/auth.service';
+import { ButtonModule } from 'primeng/button';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +20,9 @@ import { ProductsService } from '../../services/products.service';
     BadgeModule,
     AvatarModule,
     InputTextModule,
+    ButtonModule,
     RippleModule,
+    SplitButtonModule,
     CommonModule,
   ],
   templateUrl: './navbar.component.html',
@@ -26,70 +31,44 @@ import { ProductsService } from '../../services/products.service';
 export class NavbarComponent implements OnInit {
   constructor(
     private _router: Router,
-    private _productsService: ProductsService
+    private _productsService: ProductsService,
+    protected authService: AuthService
   ) {}
 
   items: MenuItem[] | undefined;
+  dashboardItems: MenuItem[] = [
+    {
+      separator: true,
+    },
+    {
+      label: 'logout',
+      icon: 'pi pi-fw pi-power-off',
+      command: () => {
+        this.authService.logout();
+        this._router.navigate(['/login']);
+      },
+    },
+  ];
 
   ngOnInit() {
     this.items = [
       {
         label: 'Home',
         icon: 'pi pi-home',
+        routerLink: ['/home'],
       },
       {
         label: 'Features',
         icon: 'pi pi-star',
-      },
-      {
-        label: 'Projects',
-        icon: 'pi pi-search',
-        items: [
-          {
-            label: 'Core',
-            icon: 'pi pi-bolt',
-            shortcut: '⌘+S',
-          },
-          {
-            label: 'Blocks',
-            icon: 'pi pi-server',
-            shortcut: '⌘+B',
-          },
-          {
-            label: 'UI Kit',
-            icon: 'pi pi-pencil',
-            shortcut: '⌘+U',
-          },
-          {
-            separator: true,
-          },
-          {
-            label: 'Templates',
-            icon: 'pi pi-palette',
-            items: [
-              {
-                label: 'Apollo',
-                icon: 'pi pi-palette',
-                badge: '2',
-              },
-              {
-                label: 'Ultima',
-                icon: 'pi pi-palette',
-                badge: '3',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        label: 'Contact',
-        icon: 'pi pi-envelope',
-        badge: '3',
       },
     ];
   }
 
   search(event: any) {
     this._productsService.updateSearchKeyword(event.target.value);
+  }
+
+  goToDashboard() {
+    this._router.navigate(['/dashboard']);
   }
 }

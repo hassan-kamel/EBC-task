@@ -22,4 +22,12 @@ export class AuthService {
     const body = { email, password };
     return this.http.post<LoginResponse>(this.loginUrl, body, { headers });
   }
+
+  logout() {
+    localStorage.removeItem('token');
+  }
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
 }

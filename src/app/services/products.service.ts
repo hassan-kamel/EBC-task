@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Observable, BehaviorSubject, switchMap } from 'rxjs';
 import { PageList } from '../interfaces/page-list.interface';
 import { Product } from '../interfaces/product.interface';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,11 @@ export class ProductsService {
 
   public products$: Observable<PageList<Product>> = this.searchKeywordSubject
     .asObservable()
-    .pipe(switchMap((searchKeyword) => this.getList(searchKeyword)));
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      switchMap((searchKeyword) => this.getList(searchKeyword))
+    );
   private getList(
     searchKeyword: string | null = null
   ): Observable<PageList<Product>> {

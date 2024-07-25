@@ -4,12 +4,20 @@ import { PrimeNGConfig } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ToastModule } from 'primeng/toast';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ButtonModule, NavbarComponent, ToastModule],
+  imports: [
+    RouterOutlet,
+    ButtonModule,
+    NavbarComponent,
+    ToastModule,
+    ProgressSpinnerModule,
+  ],
   template: `
+    <!-- <p-progressSpinner  ariaLabel="loading" /> -->
     <p-toast />
     @if(showNavbar){
     <app-navbar></app-navbar>
