@@ -1,27 +1,80 @@
 # EbcTask
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.1.
+# Angular Application
 
-## Development server
+## Overview
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This Angular application demonstrates several key functionalities, including component communication, HTTP interceptors, route guards, and routing and navigation. The application includes a login page for user authentication, a dashboard for displaying a list of users with pagination, and a details page for displaying detailed information about a selected user.
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. **Component Communication**:
 
-## Build
+   - Implemented communication between parent and child components, as well as sibling components.
+   - Example: The home product list communicates with the product card.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+2. **HTTP Interceptors**:
 
-## Running unit tests
+   - Implemented interceptors to handle authentication, display a loading spinner during HTTP requests, and handle global errors.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. **Route Guards**:
 
-## Running end-to-end tests
+   - Used route guards to restrict access to sensitive routes based on the presence of a JWT token in local storage.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+4. **Routing and Navigation**:
+   - Proper routing and navigation throughout the application, including protected routes.
 
-## Further help
+## Components
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Login Page
+
+- Allows user authentication and securely stores the obtained token in local storage.
+
+### Dashboard Page
+
+- Displays a list of users with pagination.
+- This page is restricted to authenticated users only.
+
+### Home Page
+
+- Includes a product list with search functionality.
+- Demonstrates parent-to-child and child-to-parent communication.
+
+## Additional Implementations
+
+- **Pagination**: Implemented pagination for the user list in the dashboard, which requires a JWT token to access.
+- **Add to Favorite**: Utilized Angular signals for the add to favorite functionality.
+- **State Management**: Used RxJS for state management in some places and Angular Signals in others. Instead of over-engineering with tools like NgRx.
+- **Error Handling**: Gracefully handles HTTP errors and displays user-friendly error messages.
+
+## Interceptors
+
+1. **JWT Interceptor**: Patches JWT to HTTP requests.
+2. **Loading Spinner Interceptor**: Displays a loading spinner during HTTP requests.
+3. **Global Error Handling Interceptor**: Handles global errors and displays user-friendly error messages.
+
+## Angular Guards
+
+- **Auth Guard**: Protects routes that require a token in local storage.
+- **No Auth Guard**: Protects the login page to ensure it is only accessible when there is no token in local storage.
+
+## Deployment
+
+The application is deployed to Vercel. You can access it at [ebc-task.vercel.app](https://ebc-task.vercel.app).
+
+## Source Code
+
+The source code for the application is available on GitHub at [https://github.com/hassan-kamel/ebc-task](https://github.com/hassan-kamel/ebc-task).
+
+## Running the Application Locally
+
+To run the application locally, follow these steps:
+
+1. Clone the repository.
+2. Run `npm install` to install dependencies.
+3. Run `ng serve` to start the development server.
+4. Navigate to `http://localhost:4200/` to access the application.
+
+## Conclusion
+
+This application showcases the implementation of essential Angular features and best practices. It provides a solid foundation for building more complex applications with robust authentication, routing, and state management functionalities.
