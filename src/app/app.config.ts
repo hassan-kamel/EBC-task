@@ -15,10 +15,11 @@ import {
   withInterceptors,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { globalHttpInterceptor } from './interceptors/global-http.interceptor';
 import { jwtInterceptor } from './interceptors/jwt.interceptor';
+import { loadingInterceptor } from './interceptors/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,8 +29,13 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(BrowserAnimationsModule, ToastModule),
     provideHttpClient(withInterceptorsFromDi()),
     provideHttpClient(
-      withInterceptors([globalHttpInterceptor, jwtInterceptor])
+      withInterceptors([
+        globalHttpInterceptor,
+        jwtInterceptor,
+        loadingInterceptor,
+      ])
     ),
+    ConfirmationService,
     MessageService,
   ],
 };

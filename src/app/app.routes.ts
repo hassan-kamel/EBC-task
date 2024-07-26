@@ -22,12 +22,34 @@ export const routes: Routes = [
       import('./pages/dashboard/dashboard.component').then(
         (m) => m.DashboardComponent
       ),
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'users',
+      },
+      {
+        path: 'users',
+        loadComponent: () =>
+          import('./components/users/users.component').then(
+            (m) => m.UsersComponent
+          ),
+      },
+    ],
   },
   {
     path: 'product-details',
     loadComponent: () =>
       import('./pages/product-details/product-details.component').then(
         (m) => m.ProductDetailsComponent
+      ),
+  },
+
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./pages/not-found/not-found.component').then(
+        (m) => m.NotFoundComponent
       ),
   },
 ];

@@ -1,0 +1,67 @@
+<ng-container *ngIf="users$ | async as users">
+  <p-table [value]="users.data" [tableStyle]="{ 'min-width': '60rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="_id" style="width: 20%">
+          ID <p-sortIcon field="_id" />
+        </th>
+        <th pSortableColumn="name" style="width: 20%">
+          Name <p-sortIcon field="name" />
+        </th>
+        <th pSortableColumn="email" style="width: 20%">
+          Email <p-sortIcon field="email" />
+        </th>
+        <th pSortableColumn="role" style="width: 20%">
+          Role <p-sortIcon field="role" />
+        </th>
+        <th pSortableColumn="createdAt" style="width: 20%">
+          Created At <p-sortIcon field="createdAt" />
+        </th>
+        <th pSortableColumn="updatedAt" style="width: 20%">
+          Updated At <p-sortIcon field="updatedAt" />
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>{{ user._id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.createdAt | date : "short" }}</td>
+        <td>{{ user.updatedAt | date : "short" }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <div class="pagination">
+    <button
+      (click)="
+        loadUsers(
+          users.paginationResults.currentPage - 1,
+          users.paginationResults.limit
+        )
+      "
+      [disabled]="users.paginationResults.currentPage <= 1"
+    >
+      Previous
+    </button>
+    <span
+      >Page {{ users.paginationResults.currentPage }} of
+      {{ users.paginationResults.numberOfPages }}</span
+    >
+    <button
+      (click)="
+        loadUsers(
+          users.paginationResults.currentPage + 1,
+          users.paginationResults.limit
+        )
+      "
+      [disabled]="
+        users.paginationResults.currentPage >=
+        users.paginationResults.numberOfPages
+      "
+    >
+      Next
+    </button>
+  </div>
+</ng-container>
